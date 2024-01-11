@@ -1,7 +1,7 @@
 import 'dart:ui';
-
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class DishTut extends StatefulWidget {
   final String dishTutUrl;
@@ -35,44 +35,44 @@ class _DishTutState extends State<DishTut> {
 
 
     return Scaffold(
-      body: Stack(
-          children: [
-          Align(
-          alignment: AlignmentDirectional(-1.6, -1.2),
-            child: Container(
-              height: width/1.5,
-              width: width/1.5,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade300,
-              ),
-            ),
-          ),
-          Align(
-          alignment: AlignmentDirectional(3, 0),
-            child: Container(
-              height: width/1.5,
-              width: width/1.5,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue.shade100,
-              ),
-            ),
-          ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 75, sigmaY: 75),
-            child: Container(),
-          ),
-            CustomVideoPlayer(customVideoPlayerController: _customVideoPlayerController)
-       ]
-      )
+      body: CustomVideoPlayer(customVideoPlayerController: _customVideoPlayerController),
+      // body: Stack(
+      //     children: [
+      //     Align(
+      //     alignment: AlignmentDirectional(-1.6, -1.2),
+      //       child: Container(
+      //         height: width/1.5,
+      //         width: width/1.5,
+      //         decoration: BoxDecoration(
+      //           shape: BoxShape.circle,
+      //           color: Colors.grey.shade300,
+      //         ),
+      //       ),
+      //     ),
+      //     Align(
+      //     alignment: AlignmentDirectional(3, 0),
+      //       child: Container(
+      //         height: width/1.5,
+      //         width: width/1.5,
+      //         decoration: BoxDecoration(
+      //           shape: BoxShape.circle,
+      //           color: Colors.blue.shade100,
+      //         ),
+      //       ),
+      //     ),
+      //     BackdropFilter(
+      //       filter: ImageFilter.blur(sigmaX: 75, sigmaY: 75),
+      //       child: Container(),
+      //     ),
+      //  ]
+      // )
     );
   }
 
   void initializeVideoPlayer() {
-    final Uri videoUrl = Uri.parse('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
+    // final Uri videoUrl = Uri.parse('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
     VideoPlayerController _videoPlayerController;
-    _videoPlayerController = VideoPlayerController.networkUrl(videoUrl)..
+    _videoPlayerController = VideoPlayerController.asset('assets/RL.mp4')..
     initialize().
     then((value) {
       setState(() {});
