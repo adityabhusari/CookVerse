@@ -161,95 +161,149 @@ class _PostScreenState extends State<PostScreen> {
                         ),
                       ),
                       SizedBox(height: 20,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          BlocListener<UpdatePostBloc, UpdatePostStates>(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () async{
+                                    ImagePicker videoPicker = ImagePicker();
+                                    XFile? vid = await videoPicker.pickVideo(
+                                        source: ImageSource.gallery
+                                    );
+                                    if (vid != null){
+                                        updatePostBloc.add(UploadDishTutEvent(file: vid.path, userId: userBloc.state.userModel.id, postId: post.id));
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                    elevation: MaterialStatePropertyAll(0)
+                                  ),
+                                  child: BlocConsumer<UpdatePostBloc, UpdatePostStates>(
+                                      listener: (context, state) {
+                                        if (state is UploadDishTutState){
+                                          if (state.uploadDishTutStatus == UploadDishTutStatus.success){
+                                            setState(() {
+                                              post.dishTut = state.dishTut;
+                                            });
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Video uploaded successfully'), duration: Duration(milliseconds: 1000),)
+                                            );
+                                          }
+                                          if (state.uploadDishTutStatus == UploadDishTutStatus.failure){
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Video upload failed'), duration: Duration(milliseconds: 1000),)
+                                            );
+                                          }
+                                        }
+                                      },
+                                      builder: (context, state) {
+                                        if (state is UploadDishTutState){
+                                          if (state.uploadDishTutStatus == UploadDishTutStatus.loading){
+                                            return Center(child: CircularProgressIndicator());
+                                          }else{
+                                            return Text('Upload Tutorial', style: TextStyle(color: Colors.white));
+                                          }
+                                        }else{
+                                          return Text('Upload Tutorial', style: TextStyle(color: Colors.white));
+                                        }
+                                      },
+
+                                  ),
+                              ),
+                              ElevatedButton(
+                                  onPressed: () async{
+                                    ImagePicker picker = ImagePicker();
+                                    XFile? img = await picker.pickImage(
+                                        source: ImageSource.gallery,
+                                        maxHeight: 500,
+                                        maxWidth: 500,
+                                        imageQuality: 80
+                                    );
+                                    if (img != null){
+                                        updatePostBloc.add(UploadDishPicEvent(file: img.path, userId: userBloc.state.userModel.id, postId: post.id));
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                      elevation: MaterialStatePropertyAll(0)
+                                  ),
+                                  child: BlocConsumer<UpdatePostBloc, UpdatePostStates>(
+                                    listener: (context, state) {
+                                      if (state is UploadDishPicState){
+                                      if (state.uploadDishPicStatus == UploadDishPicStatus.success){
+                                          setState(() {
+                                            post.dishPic = state.dishPic;
+                                          });
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Imageu uploaded successfully'), duration: Duration(milliseconds: 1000),)
+                                          );
+                                        }
+                                      else if (state.uploadDishPicStatus == UploadDishPicStatus.failure){
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Failed to upload'), duration: Duration(milliseconds: 1000),)
+                                        );
+                                        }
+                                      }
+                                    },
+                                      builder: (context, state) {
+                                        if (state is UploadDishPicState){
+                                          if (state.uploadDishPicStatus == UploadDishPicStatus.loading){
+                                            return Center(child: CircularProgressIndicator());
+                                          }
+                                          else{
+                                            return Text('Upload Photo', style: TextStyle(color: Colors.white));
+                                          }
+                                        }else{
+                                          return Text('Upload Photo', style: TextStyle(color: Colors.white));
+                                        }
+                                      },
+
+                                  )
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          BlocListener<CreatePostBloc, CreatePostStates>(
                             listener: (context, state) {
-                              if (state is UploadDishPicState){
-                                if (state.uploadDishPicStatus == UploadDishPicStatus.success){
-                                  setState(() {
-                                    post.dishPic = state.dishPic;
-                                  });
+                              if (state is CreatePostsState){
+                                if (state.createPostStatus == CreatePostStatus.success){
+                                  updatePostBloc.add(ResetBloc());
+                                  Navigator.pop(context);
                                 }
                               }
                             },
-                            child: BlocListener<CreatePostBloc, CreatePostStates>(
+                            child: BlocListener<UpdateInfoBloc, UpdateInfoStates>(
                               listener: (context, state) {
-                                if (state is CreatePostsState){
-                                  if (state.createPostStatus == CreatePostStatus.success){
-                                    updatePostBloc.add(ResetBloc());
-                                    Navigator.pop(context);
-                                  }
+                                if (state is AddedPostToUserStateSuccess){
+                                  setState(() {
+                                    userBloc.state.userModel.myRecipes = state.myRecipes;
+                                  });
                                 }
                               },
-                              child: BlocListener<UpdateInfoBloc, UpdateInfoStates>(
-                                listener: (context, state) {
-                                  if (state is AddedPostToUserStateSuccess){
+                              child: ElevatedButton(
+                                  onPressed: () {
                                     setState(() {
-                                      userBloc.state.userModel.myRecipes = state.myRecipes;
+                                      post.userId = userBloc.state.userModel.id;
+                                      post.name = name.text;
+                                      post.type = type.text;
+                                      post.ingredients = ingredients.text;
+                                      post.time = time.text;
+                                      post.steps = steps.text;
                                     });
-                                  }
-                                },
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        post.userId = userBloc.state.userModel.id;
-                                        post.name = name.text;
-                                        post.type = type.text;
-                                        post.ingredients = ingredients.text;
-                                        post.time = time.text;
-                                        post.steps = steps.text;
-                                      });
-                                      updateInfoBloc.add(AddPostToUserEvent(postId: post.id, userId: userBloc.state.userModel.id));
-                                      createPostBloc.add(CreatePostEvent(post: post));
-                                    },
-                                    child: Text('POST')
+                                    updateInfoBloc.add(AddPostToUserEvent(postId: post.id, userId: userBloc.state.userModel.id));
+                                    createPostBloc.add(CreatePostEvent(post: post));
+                                  },
+                                child: Text('Submit', style: TextStyle(color: Colors.white)),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                                    elevation: MaterialStatePropertyAll(0)
                                 ),
                               ),
                             ),
-                          ),
-                          ElevatedButton(
-                              onPressed: () async{
-                                ImagePicker picker = ImagePicker();
-                                XFile? img = await picker.pickImage(
-                                    source: ImageSource.gallery,
-                                    maxHeight: 500,
-                                    maxWidth: 500,
-                                    imageQuality: 80
-                                );
-                                if (img != null){
-                                    updatePostBloc.add(UploadDishPicEvent(file: img.path, userId: userBloc.state.userModel.id, postId: post.id));
-                                }
-                              },
-                              child: BlocBuilder<UpdatePostBloc, UpdatePostStates>(
-                                  builder: (context, state) {
-                                    if (state is UploadDishPicState){
-                                      if (state.uploadDishPicStatus == UploadDishPicStatus.loading){
-                                        return Center(child: CircularProgressIndicator());
-                                      }
-                                      else if (state.uploadDishPicStatus == UploadDishPicStatus.success){
-                                        return Center(
-                                          child: Icon(
-                                            Icons.check
-                                          ),
-                                        );
-                                      }
-                                      else if (state.uploadDishPicStatus == UploadDishPicStatus.failure){
-                                        return Center(
-                                          child: Icon(
-                                              Icons.clear
-                                          ),
-                                        );
-                                      }else{
-                                        return Text("FUKC");
-                                      }
-                                    }else{
-                                      return Text('Upload dish');
-                                    }
-                                  },
-
-                              )
                           ),
                         ],
                       )

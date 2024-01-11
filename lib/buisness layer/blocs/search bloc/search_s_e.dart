@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data layer/models/post_model.dart';
+import '../../../data layer/models/post_model.dart';
 
 abstract class SearchEvents extends Equatable{}
 

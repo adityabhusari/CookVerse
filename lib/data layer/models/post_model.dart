@@ -14,9 +14,10 @@ class Post extends Equatable{
   DateTime? dateTime;
   String? userId;
   String? dishPic;
+  String? dishTut;
   int? likes;
 
-  Post({required this.id, this.name = '', this.type = '', this.time = '', this.ingredients = '', this.steps = '', this.dateTime, this.dishPic = '', this.userId = '', this.likes = 0});
+  Post({required this.id, this.name = '', this.type = '', this.time = '', this.ingredients = '', this.steps = '', this.dateTime, this.dishPic = '', this.userId = '', this.likes = 0, this.dishTut = ''});
 
   static Post empty = Post(
       id: '',
@@ -24,6 +25,7 @@ class Post extends Equatable{
       userId: '',
       dateTime: DateTime.now(),
       dishPic: '',
+      dishTut: '',
       steps: '',
       ingredients: '',
       time: '',
@@ -45,6 +47,7 @@ class Post extends Equatable{
     DateTime? dateTime,
     String? userId,
     String? dishPic,
+    String? dishTut,
     int? likes
   }){
     return Post(
@@ -57,6 +60,7 @@ class Post extends Equatable{
       dateTime: dateTime?? this.dateTime,
       userId: userId?? this.userId,
       dishPic: dishPic?? this.dishPic,
+      dishTut: dishTut?? this.dishTut,
       likes: likes?? this.likes
     );
   }
@@ -72,6 +76,7 @@ class Post extends Equatable{
         dateTime: dateTime,
         userId: userId,
         dishPic: dishPic,
+        dishTut: dishTut,
         likes: likes
     );
   }
@@ -87,6 +92,7 @@ class Post extends Equatable{
         dateTime: postEntity.dateTime,
         userId: postEntity.userId,
         dishPic: postEntity.dishPic,
+        dishTut: postEntity.dishTut,
         likes: postEntity.likes
     );
   }
@@ -99,6 +105,7 @@ class Post extends Equatable{
       userId: $userId,
       dateTime: $dateTime,
       dishPic: $dishPic,
+      dishTut: $dishTut,
       steps: $steps,
       ingredients: $ingredients,
       time: $time,
@@ -109,6 +116,6 @@ class Post extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, name, type, time, ingredients, steps, dateTime, userId, dishPic, likes];
+  List<Object?> get props => [id, name, type, time, ingredients, steps, dateTime, userId, dishPic, likes, dishTut];
 
 }

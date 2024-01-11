@@ -12,6 +12,7 @@ import 'package:last/buisness%20layer/blocs/post%20user%20bloc/post_user_s_e.dar
 import 'package:last/buisness%20layer/blocs/user%20bloc/get_user_bloc.dart';
 import 'package:last/buisness%20layer/blocs/user%20bloc/get_user_s_e.dart';
 import 'package:last/buisness%20layer/blocs/user%20bloc/user_bloc.dart';
+import 'package:last/presentation/dish_tut_page.dart';
 
 class RecipePage extends StatefulWidget {
   const RecipePage({Key? key}) : super(key: key);
@@ -231,6 +232,23 @@ class _RecipePageState extends State<RecipePage> {
                                                 },
                                             ),
                                           ),
+                                        ),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => DishTut(dishTutUrl: state.postModel.dishTut!,)));
+                                            },
+                                            child: Text('Tutorial', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),),
+                                            style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(18),
+                                                  side: BorderSide(color: Colors.black)
+                                                )
+                                              ),
+                                              backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                                              elevation: MaterialStatePropertyAll(0),
+                                              
+                                            ),
                                         ),
                                         Align(
                                           alignment: Alignment.bottomRight,

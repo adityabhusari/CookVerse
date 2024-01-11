@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:last/buisness%20layer/blocs/search_s_e.dart';
+import 'package:last/buisness%20layer/blocs/search%20bloc/search_s_e.dart';
 import 'package:last/data%20layer/models/post_model.dart';
 
-import '../../data layer/repositories/post_repo.dart';
+import '../../../data layer/repositories/post_repo.dart';
 
 class SearchBloc extends Bloc<SearchEvents, SearchStates>{
 

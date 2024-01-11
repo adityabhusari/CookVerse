@@ -17,6 +17,17 @@ class UpdatePostBloc extends Bloc<UpdatePostEvents, UpdatePostStates>{
         }
     });
 
+    on<UploadDishTutEvent>((event, emit) async{
+      emit(UploadDishTutState.loading());
+      try{
+        final String dishTut = await postRepository.uploadDishTut(event.file, event.postId, event.userId);
+        emit(UploadDishTutState.success(dishTut));
+      }catch(e){
+        print(e.toString());
+        emit(UploadDishTutState.failure());
+      }
+    });
+
     on<ResetBloc>((event, emit) {
       emit(UpdatePostStateInitial());
     });

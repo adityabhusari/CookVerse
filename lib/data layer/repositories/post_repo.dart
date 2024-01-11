@@ -61,6 +61,19 @@ class PostRepository{
     }
   }
 
+  Future<String> uploadDishTut(String file, String postId, String userId) async{
+    try{
+      File vidFile = File(file);
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('$userId/DISHPTUT/${postId}_tut');
+      await firebaseStorageRef.putFile(vidFile);
+      String url = await firebaseStorageRef.getDownloadURL();
+      print(url);
+      return url;
+    }catch(e){
+      rethrow;
+    }
+  }
+
   Future<void> likeUnlikePost(bool isLiked, String pid) async{
     try{
        if (isLiked){

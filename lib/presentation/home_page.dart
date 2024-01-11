@@ -20,7 +20,7 @@ import 'package:last/buisness%20layer/blocs/user%20bloc/follow_s_e.dart';
 import 'package:last/buisness%20layer/blocs/user%20bloc/user_bloc.dart';
 import 'package:last/buisness%20layer/blocs/user%20bloc/user_s_e.dart';
 
-import '../buisness layer/blocs/search bloc.dart';
+import '../buisness layer/blocs/search bloc/search bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

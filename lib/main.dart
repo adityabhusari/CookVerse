@@ -12,7 +12,7 @@ import 'package:last/buisness%20layer/blocs/post%20user%20bloc/get_user_bookmark
 import 'package:last/buisness%20layer/blocs/post%20user%20bloc/get_user_post_list_bloc.dart';
 import 'package:last/buisness%20layer/blocs/post%20user%20bloc/like_unlike_bloc.dart';
 import 'package:last/buisness%20layer/blocs/post%20user%20bloc/post_user_inter_bloc.dart';
-import 'package:last/buisness%20layer/blocs/search%20bloc.dart';
+import 'package:last/buisness%20layer/blocs/search%20bloc/search%20bloc.dart';
 import 'package:last/buisness%20layer/blocs/update%20bloc/update_post_bloc.dart';
 import 'package:last/buisness%20layer/blocs/update%20bloc/update_user_info_bloc.dart';
 import 'package:last/buisness%20layer/blocs/user%20bloc/follow_bloc.dart';

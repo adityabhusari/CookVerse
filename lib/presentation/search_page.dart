@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last/buisness%20layer/blocs/post%20user%20bloc/post_user_inter_bloc.dart';
 import 'package:last/buisness%20layer/blocs/post%20user%20bloc/post_user_s_e.dart';
-import 'package:last/buisness%20layer/blocs/search%20bloc.dart';
-import 'package:last/buisness%20layer/blocs/search_s_e.dart';
+import 'package:last/buisness%20layer/blocs/search%20bloc/search%20bloc.dart';
+import 'package:last/buisness%20layer/blocs/search%20bloc/search_s_e.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

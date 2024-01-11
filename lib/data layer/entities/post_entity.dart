@@ -11,10 +11,11 @@ class PostEntity extends Equatable{
   DateTime? dateTime;
   String? userId;
   String? dishPic;
+  String? dishTut;
   int? likes;
 
 
-  PostEntity({required this.id, this.name = '', this.type = '', this.time = '', this.ingredients = '', this.steps = '', this.dateTime, this.dishPic = '', this.userId = '', this.likes = 0});
+  PostEntity({required this.id, this.name = '', this.type = '', this.time = '', this.ingredients = '', this.steps = '', this.dateTime, this.dishPic = '', this.userId = '', this.likes = 0, this.dishTut = ''});
 
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
@@ -27,6 +28,7 @@ class PostEntity extends Equatable{
       'dateTime': dateTime,
       'userId': userId,
       'dishPic': dishPic,
+      'dishTut': dishTut,
       'likes': likes
     };
   }
@@ -43,12 +45,13 @@ class PostEntity extends Equatable{
         dateTime: (doc['dateTime'] as Timestamp).toDate(),
         userId: doc['userId'].toString(),
         dishPic: doc['dishPic'].toString(),
+        dishTut: doc['dishTut'].toString(),
         likes: doc['likes']
     );
   }
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, name, type, time, ingredients, steps, dateTime, userId, dishPic, likes];
+  List<Object?> get props => [id, name, type, time, ingredients, steps, dateTime, userId, dishPic, likes, dishTut];
 
 }
