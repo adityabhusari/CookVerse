@@ -21,5 +21,4 @@ class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostsState>{
     });
   }
 
-
 }

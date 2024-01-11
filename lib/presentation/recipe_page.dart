@@ -109,7 +109,7 @@ class _RecipePageState extends State<RecipePage> {
                             ),
                             SizedBox(height: 10),
                             Container(
-                              height: height/1.5,
+                              height: height/1.3,
                               width: width,
                               decoration: BoxDecoration(
                                   color: Colors.white70,
@@ -162,23 +162,43 @@ class _RecipePageState extends State<RecipePage> {
                                       color: Colors.black,
                                       thickness: 1,
                                     ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Ingredients:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.35)),),
-                                        Text(state.postModel.ingredients!)
-                                      ],
+                                    SizedBox(height: 10,),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Ingredients:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.35)),),
+                                          Container(
+                                            height: height/9,
+                                            child: SingleChildScrollView(
+                                              child: Text(state.postModel.ingredients!)
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Divider(
                                       color: Colors.black,
                                       thickness: 1,
                                     ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Steps:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.35)),),
-                                        Text(state.postModel.steps!)
-                                      ],
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Steps:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.35)),),
+                                          SizedBox(height: 10,),
+                                          Container(
+                                            height: height/4,
+                                            child: SingleChildScrollView(
+                                              child: Text(
+                                                  state.postModel.steps!
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
