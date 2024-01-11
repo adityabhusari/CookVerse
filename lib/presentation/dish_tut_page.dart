@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:appinio_video_player/appinio_video_player.dart';
+// import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -13,7 +13,8 @@ class DishTut extends StatefulWidget {
 }
 
 class _DishTutState extends State<DishTut> {
-  late CustomVideoPlayerController _customVideoPlayerController;
+  // late CustomVideoPlayerController _customVideoPlayerController;
+  late VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
@@ -23,7 +24,8 @@ class _DishTutState extends State<DishTut> {
 
   @override
   void dispose() {
-    _customVideoPlayerController.dispose();
+    // _customVideoPlayerController.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -35,7 +37,7 @@ class _DishTutState extends State<DishTut> {
 
 
     return Scaffold(
-      body: CustomVideoPlayer(customVideoPlayerController: _customVideoPlayerController),
+      body: VideoPlayer(_videoPlayerController),
       // body: Stack(
       //     children: [
       //     Align(
@@ -71,13 +73,13 @@ class _DishTutState extends State<DishTut> {
 
   void initializeVideoPlayer() {
     // final Uri videoUrl = Uri.parse('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
-    VideoPlayerController _videoPlayerController;
+    // VideoPlayerController _videoPlayerController;
     _videoPlayerController = VideoPlayerController.asset('assets/RL.mp4')..
     initialize().
     then((value) {
       setState(() {});
     });
 
-    _customVideoPlayerController = CustomVideoPlayerController(context: context, videoPlayerController: _videoPlayerController);
+    // _customVideoPlayerController = CustomVideoPlayerController(context: context, videoPlayerController: _videoPlayerController);
   }
 }

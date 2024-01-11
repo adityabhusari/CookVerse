@@ -19,6 +19,17 @@ class SignUpUserEvent extends SignUpEvents{
 
 }
 
+class SignInWithGoogle extends SignUpEvents{
+
+  final UserModel userModel;
+
+  SignInWithGoogle({required this.userModel});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [userModel];
+}
+
 //STATES
 class SignUpState extends Equatable{
   final UserModel userModel;

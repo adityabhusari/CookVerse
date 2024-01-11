@@ -24,13 +24,33 @@ class LogoutEvent extends LoginEvents{
 
 }
 
+class ForgotPassEvent extends LoginEvents{
+  final String email;
+
+  ForgotPassEvent({required this.email});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+
+}
+
+
 //STATES
-class LoginState extends Equatable{
+abstract class LoginStates extends Equatable{}
+
+class PassResetSent extends LoginStates{
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class LoginState extends LoginStates{
   final UserModel userModel;
   final LoginStatus loginStatus;
   final String? errMsg;
 
-  const LoginState({required this.userModel, required this.loginStatus, this.errMsg});
+   LoginState({required this.userModel, required this.loginStatus, this.errMsg});
 
   @override
   // TODO: implement props

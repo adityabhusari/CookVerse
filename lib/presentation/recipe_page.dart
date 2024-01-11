@@ -235,7 +235,7 @@ class _RecipePageState extends State<RecipePage> {
                                         ),
                                         ElevatedButton(
                                             onPressed: () {
-                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => DishTut(dishTutUrl: state.postModel.dishTut!,)));
+                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => DishTut(dishTutUrl: state.postModel.dishTut!),));
                                             },
                                             child: Text('Tutorial', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),),
                                             style: ButtonStyle(

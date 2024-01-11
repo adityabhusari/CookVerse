@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:last/buisness%20layer/blocs/auth%20bloc/login_s_e.dart';
 import 'package:last/data%20layer/entities/user_entity.dart';
 
 import '../models/user_model.dart';
@@ -44,6 +46,42 @@ class UserRepository{
       rethrow;
     }
   }
+
+  Future<UserModel> signInWithGoogle(UserModel userModel) async{
+    try{
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+      final credentials = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken
+      );
+
+      UserCredential userCredential = await _firebaseAuth.signInWithCredential(credentials);
+      userModel = userModel.copyWith(
+        email: userCredential.user!.email,
+        name: userCredential.user!.displayName,
+        id: userCredential.user!.uid
+      );
+
+      return userModel;
+
+    }catch(e){
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> forgotPass(String email) async{
+    try{
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    }catch(e){
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+
 
   Future<void> logInWithEmailAndPass(String email, String password) async{
     try{

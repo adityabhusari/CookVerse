@@ -18,6 +18,16 @@ class SignUpBloc extends Bloc<SignUpEvents, SignUpState>{
        emit(SignUpState(userModel: UserModel.empty, status: SignUpStatus.error));
       }
     });
+
+    on<SignInWithGoogle>((event, emit) async{
+      try{
+        UserModel userModel = await userRepository.signInWithGoogle(event.userModel);
+        await userRepository.setUser(userModel);
+        emit(SignUpState(userModel: userModel, status: SignUpStatus.success));
+      }catch(e){
+        emit(SignUpState(userModel: UserModel.empty, status: SignUpStatus.error));
+      }
+    });
   }
 
 }

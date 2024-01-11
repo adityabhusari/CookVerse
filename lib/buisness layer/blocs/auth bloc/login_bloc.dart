@@ -4,7 +4,7 @@ import 'package:last/data%20layer/models/user_model.dart';
 
 import '../../../data layer/repositories/auth_repo.dart';
 
-class LoginBloc extends Bloc<LoginEvents, LoginState>{
+class LoginBloc extends Bloc<LoginEvents, LoginStates>{
 
   final UserRepository userRepository;
 
@@ -24,10 +24,20 @@ class LoginBloc extends Bloc<LoginEvents, LoginState>{
         emit(LoginState(userModel: UserModel.empty, loginStatus: LoginStatus.error));
       }
     });
+
+    on<ForgotPassEvent>((event, emit) async{
+      try{
+        await userRepository.forgotPass(event.email);
+        emit(PassResetSent());
+      }catch(e){
+        print(e.toString());
+        emit(LoginState(userModel: UserModel.empty, loginStatus: LoginStatus.error));
+      }
+    });
   }
 
   @override
-  void onTransition(Transition<LoginEvents, LoginState> transition) {
+  void onTransition(Transition<LoginEvents, LoginStates> transition) {
     print(transition);
     super.onTransition(transition);
   }
