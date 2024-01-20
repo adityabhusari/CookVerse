@@ -9,7 +9,10 @@ import 'package:last/buisness%20layer/blocs/auth%20bloc/signup_s_e.dart';
 import 'package:last/data%20layer/models/user_model.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
+
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,7 @@ class SignUpScreen extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final TextEditingController email = TextEditingController();
-    final TextEditingController pass = TextEditingController();
-    final TextEditingController name = TextEditingController();
+
     
     SignUpBloc signUpBloc = BlocProvider.of<SignUpBloc>(context);
     
@@ -114,6 +116,7 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(height: 20,),
                       TextField(
                         controller: pass,
+                        obscureText: true,
                         decoration: InputDecoration(
                             fillColor: Colors.white24,
                             label: Text("Password"),

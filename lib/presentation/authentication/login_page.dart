@@ -8,17 +8,19 @@ import 'package:last/buisness%20layer/blocs/auth%20bloc/login_s_e.dart';
 import 'package:last/buisness%20layer/blocs/auth%20bloc/login_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
-  static Page page() => const MaterialPage<void>(child: LoginScreen());
+  static Page page() => MaterialPage<void>(child: LoginScreen());
+
+  final TextEditingController email = TextEditingController();
+  final TextEditingController pass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
 
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final TextEditingController email = TextEditingController();
-    final TextEditingController pass = TextEditingController();
+
 
     LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
     return BlocListener<LoginBloc, LoginStates>(
@@ -109,6 +111,7 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(height: 20,),
                         TextField(
                           controller: pass,
+                          obscureText: true,
                           decoration: InputDecoration(
                               fillColor: Colors.white24,
                               label: Text("Password"),
